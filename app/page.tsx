@@ -1,8 +1,6 @@
 import { Flex } from "@radix-ui/themes";
-import Banner from "./components/Banner";
 import FileUploader from "./components/FileUploader";
 import { Chatbot } from "./components/Chatbot";
-import NavBar from "./NavBar";
 
 export default async function Home() {
   return (
@@ -12,8 +10,8 @@ export default async function Home() {
         direction="column"
         gap={"4"}
       >
-        {/* <FileUploader />
-      <Chatbot /> */}
+        <FileUploader />
+        <Chatbot />
       </Flex>
     </>
   );

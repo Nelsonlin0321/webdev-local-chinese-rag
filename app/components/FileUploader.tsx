@@ -15,8 +15,8 @@ const FileUploader = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) return;
-    if (!file.name.endsWith(".pdf")) {
-      toast.error("Only PDF document supported", { duration: 1000 });
+    if (!file.name.endsWith(".docx")) {
+      toast.error("只支持 Word Docx 文档！", { duration: 1000 });
       return;
     }
     setSubmitting(true);
@@ -29,11 +29,11 @@ const FileUploader = () => {
         },
       });
       router.refresh();
-      toast.success("File uploaded successfully!", { duration: 1000 });
+      toast.success("上传文档成功！", { duration: 1000 });
     } catch (error) {
       const response = (error as AxiosError).response?.data;
       const message = (response as { message: string }).message;
-      const errorMessage = message || "File Uploading Failed!";
+      const errorMessage = message || "上传文档失败！";
       toast.error(errorMessage, { duration: 1000 });
     } finally {
       setSubmitting(false);

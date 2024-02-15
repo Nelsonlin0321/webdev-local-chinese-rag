@@ -9,7 +9,6 @@ export interface chatRecord {
   file_name: string;
   answer: string;
   uuid: string;
-  page_number: number;
 }
 
 export const Chatbot = () => {
