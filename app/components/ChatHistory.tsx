@@ -3,15 +3,10 @@ import { Text } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Accordion, Icon, Label } from "semantic-ui-react";
-import { chatRecord } from "./Chatbot";
 
 const PDFViewer = dynamic(() => import("./PDFViewer"), {
   ssr: false,
 });
-
-interface Props {
-  chatRecords: chatRecord[];
-}
 
 const ChatHistory = ({ chatRecords }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0);

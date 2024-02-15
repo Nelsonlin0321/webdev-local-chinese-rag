@@ -6,7 +6,6 @@ import Spinner from "./Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Button } from "semantic-ui-react";
-
 const FileUploader = () => {
   const [file, setFile] = useState<File>();
   const [isSubmitting, setSubmitting] = useState(false);

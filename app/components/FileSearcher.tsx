@@ -3,34 +3,25 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import useDocuments from "../documents/useDocuments";
 
 interface Props {
-  fileNames: string[];
   setFileName: (fileName: string) => void;
 }
 
-const FileSearcher = ({ fileNames, setFileName }: Props) => {
-  const [value, setValue] = useState<string | null>(fileNames[0]);
-  const [inputValue, setInputValue] = useState<string | undefined>(
-    fileNames[0]
-  );
+const FileSearcher = ({ setFileName }: Props) => {
+  const { documents, documentsDispatch } = useDocuments();
 
   return (
     <Autocomplete
-      value={value}
-      onChange={(event: any, newValue: string | null) => {
-        setValue(newValue);
-      }}
-      inputValue={inputValue}
+      inputValue={documents ? documents[0].file_name : undefined}
       onInputChange={(event: any, newInputValue) => {
-        setInputValue(newInputValue);
         setFileName(newInputValue);
       }}
       className="rounded-lg border w-full"
       disablePortal
       id="combo-box-demo"
-      options={fileNames}
+      options={documents.map((doc) => doc.file_name)}
       renderInput={(params) => (
         <TextField
           size="small"
@@ -40,7 +31,7 @@ const FileSearcher = ({ fileNames, setFileName }: Props) => {
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon />
-                Search PDF
+                搜索文档
               </InputAdornment>
             ),
           }}

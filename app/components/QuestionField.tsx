@@ -1,29 +1,18 @@
 "use client";
 import { TextField, Text, Heading } from "@radix-ui/themes";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Button } from "semantic-ui-react";
 import toast, { Toaster } from "react-hot-toast";
 import apiClient from "../services/api-client";
 import { chatRecord } from "./Chatbot";
-// import { AxiosError } from "axios";
 import Spinner from "./Spinner";
 
-interface Props {
-  fileName: string;
-  fileNames: string[];
-  chatRecords: chatRecord[];
-  setChatRecords: (records: chatRecord[]) => void;
-}
-
-const QuestionField = ({
-  fileName,
-  fileNames,
-  chatRecords,
-  setChatRecords,
-}: Props) => {
+const QuestionField = () => {
   const questionRef = useRef<HTMLInputElement>(null);
   const contextRef = useRef<HTMLInputElement>(null);
+
   const [isLoading, setLoading] = useState(false);
+
   const submitData: {
     question: string;
     file_name: string;
@@ -37,8 +26,8 @@ const QuestionField = ({
           event.preventDefault();
 
           if (questionRef.current) {
-            if (questionRef.current.value.split(" ").length < 3) {
-              toast.error("The question requires at least 3 words");
+            if (questionRef.current.value.length < 5) {
+              toast.error("问题少于5个字");
               return;
             }
 
