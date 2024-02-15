@@ -4,10 +4,6 @@ import SelectDocsAsk from "./SelectDocsAsk";
 import ChatHistory from "./ChatHistory";
 import { Button } from "semantic-ui-react";
 
-interface Props {
-  fileNames: string[];
-}
-
 export interface chatRecord {
   question: string;
   file_name: string;
@@ -16,7 +12,7 @@ export interface chatRecord {
   page_number: number;
 }
 
-export const Chatbot = ({ fileNames }: Props) => {
+export const Chatbot = () => {
   const initChatRecords = [
     {
       context: "total population in Hong Kong Island",

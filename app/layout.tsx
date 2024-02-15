@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "semantic-ui-css/semantic.min.css";
 import { Container, Theme } from "@radix-ui/themes";
+import NavBar from "./NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Theme accentColor="blue">
           <main>
+            <NavBar />
             <Container className="h-screen pl-5 pr-5">{children}</Container>
           </main>
         </Theme>
