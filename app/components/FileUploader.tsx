@@ -59,7 +59,7 @@ const FileUploader = () => {
           color="blue"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Processing File" : "Upload and Process File"}
+          {isSubmitting ? "上传并且处理文件中..." : "上传文件"}
           {isSubmitting && <Spinner />}
         </Button>
       </form>

@@ -4,7 +4,7 @@ import React from "react";
 
 interface ChatsContextType {
   chats: Chat[];
-  dispatch: Dispatch<ChatAction>;
+  chatsDispatch: Dispatch<ChatAction>;
 }
 
 const ChatsContext = React.createContext<ChatsContextType>(
