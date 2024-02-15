@@ -15,7 +15,12 @@ interface ClearChats {
   type: "DELETE";
 }
 
-export type ChatAction = AddChat | ClearChats;
+interface SetChats {
+  type: "SET";
+  chats: Chat[];
+}
+
+export type ChatAction = AddChat | ClearChats | SetChats;
 
 const ChatsReducer = (chats: Chat[], action: ChatAction): Chat[] => {
   switch (action.type) {
@@ -23,6 +28,8 @@ const ChatsReducer = (chats: Chat[], action: ChatAction): Chat[] => {
       return [action.chat, ...chats];
     case "DELETE":
       return [];
+    case "SET":
+      return action.chats;
   }
 };
 

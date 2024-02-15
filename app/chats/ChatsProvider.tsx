@@ -1,4 +1,4 @@
-import React, { ReactNode, useReducer } from "react";
+import React, { ReactNode, useEffect, useReducer } from "react";
 import ChatsReducer, { Chat } from "./ChatsReducer";
 import ChatsContext from "./ChatsContext";
 
@@ -19,6 +19,20 @@ const ChatsProvider = ({ children }: Props) => {
   ];
 
   const [chats, dispatch] = useReducer(ChatsReducer, initChat);
+
+  useEffect(() => {
+    const savedChatRecords = localStorage.getItem("chatRecords");
+    if (savedChatRecords) {
+      const parsedChatRecords: Chat[] = JSON.parse(savedChatRecords);
+      if (parsedChatRecords.length > 0) {
+        dispatch({ type: "SET", chats: parsedChatRecords });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("chatRecords", JSON.stringify(chats));
+  }, [chats]);
 
   return (
     <ChatsContext.Provider value={{ chats, dispatch }}>
