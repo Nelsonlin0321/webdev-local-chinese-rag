@@ -1,31 +1,7 @@
-import { Flex } from "@radix-ui/themes";
-import ChatsProvider from "./chats/ChatsProvider";
-import FileUploader from "./components/FileUploader";
-import DocumentsProvider from "./documents/DocumentsProvider";
-import FileSearcher from "./components/FileSearcher";
-import QuestionField from "./components/QuestionField";
-import ChatHistory from "./components/ChatHistory";
+import Chatbot from "./components/Chatbot";
 
 export default async function Home() {
-  return (
-    <DocumentsProvider>
-      <ChatsProvider>
-        <Flex
-          className="justify-center items-center mb-10"
-          direction="column"
-          gap={"4"}
-        >
-          <FileUploader />
-          <FileSearcher />
-          <QuestionField />
-
-          {/* <ChatHistory /> */}
-
-          {/* <Button onClick={() => setChatRecords([])}>Clear History</Button> */}
-        </Flex>
-      </ChatsProvider>
-    </DocumentsProvider>
-  );
+  return <Chatbot />;
 }
 
 export const dynamic = "force-dynamic";

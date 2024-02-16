@@ -3,25 +3,40 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import useDocuments from "../documents/useDocuments";
+import { useState } from "react";
+import useDocuments from "../hooks/useDocuments";
 
 interface Props {
   setFileName: (fileName: string) => void;
 }
 
 const FileSearcher = ({ setFileName }: Props) => {
-  const { documents, documentsDispatch } = useDocuments();
+  const { data: documentsResponse } = useDocuments();
+
+  const listOfDocument = documentsResponse?.results
+    ? documentsResponse.results
+    : [];
+
+  const allDocument = listOfDocument.map((doc) => doc.file_name);
+
+  const [value, setValue] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string | undefined>("");
 
   return (
     <Autocomplete
-      inputValue={documents ? documents[0].file_name : undefined}
+      value={value}
+      onChange={(event: any, newValue: string | null) => {
+        setValue(newValue);
+      }}
+      inputValue={inputValue}
       onInputChange={(event: any, newInputValue) => {
+        setInputValue(newInputValue);
         setFileName(newInputValue);
       }}
       className="rounded-lg border w-full"
       disablePortal
       id="combo-box-demo"
-      options={documents.map((doc) => doc.file_name)}
+      options={allDocument}
       renderInput={(params) => (
         <TextField
           size="small"

@@ -11,11 +11,11 @@ interface Props {
 const DocumentsProvider = ({ children }: Props) => {
   const [documents, documentsDispatch] = useReducer(DocumentsReducer, []);
 
-  // useEffect(() => {
-  //   apiClient
-  //     .get<Document[]>("/RAG/documents")
-  //     .then((res) => documentsDispatch({ type: "SET", documents: res.data }));
-  // }, []);
+  useEffect(() => {
+    apiClient
+      .get<Document[]>("/RAG/documents")
+      .then((res) => documentsDispatch({ type: "SET", documents: res.data }));
+  }, []);
 
   return (
     <DocumentsContext.Provider value={{ documents, documentsDispatch }}>
