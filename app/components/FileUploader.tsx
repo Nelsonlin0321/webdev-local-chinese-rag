@@ -22,7 +22,7 @@ const FileUploader = () => {
     try {
       const data = new FormData();
       data.set("file", file);
-      await axiosInstance.post("/api/ingest", data, {
+      await axiosInstance.post("/RAG/ingest_file", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

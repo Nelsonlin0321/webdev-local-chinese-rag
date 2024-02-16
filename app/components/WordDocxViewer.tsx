@@ -7,7 +7,7 @@ const WordDocxViewer = ({ uri }: { uri: string }) => {
   return (
     <DocViewer
       pluginRenderers={DocViewerRenderers}
-      documents={[{ uri: uri }]}
+      documents={[{ uri: uri, fileType: "docx" }]}
       style={{ height: "500px" }}
     />
   );

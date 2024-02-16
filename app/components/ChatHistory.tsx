@@ -9,13 +9,13 @@ const WordDocxViewer = dynamic(() => import("./WordDocxViewer"), {
 });
 
 const ChatHistory = () => {
-  const { chats, chatsDispatch } = useContext(ChatsContext);
+  const { chats } = useContext(ChatsContext);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // useEffect(() => {
-  //   setActiveIndex(0);
-  // }, [chatRecords]);
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [chats]);
 
   return (
     <Accordion fluid styled>
@@ -49,9 +49,7 @@ const ChatHistory = () => {
             {activeIndex === index ? (
               <WordDocxViewer
                 key={index} // Add key prop with a unique value
-                uri={
-                  "https://d2gewc5xha837s.cloudfront.net/chinese-local-rag/关于精密研磨优化改进制作说明.docx"
-                }
+                uri={`https://d2gewc5xha837s.cloudfront.net/chinese-local-rag/${message.file_name}`}
               />
             ) : null}
           </Accordion.Content>

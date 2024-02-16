@@ -7,6 +7,7 @@ import FileUploader from "./FileUploader";
 import FileSearcher from "./FileSearcher";
 import QuestionField from "./QuestionField";
 import ChatHistory from "./ChatHistory";
+import SubmitButton from "./SubmitButton";
 
 const queryClient = new QueryClient();
 
@@ -24,10 +25,8 @@ const Chatbot = () => {
           <FileUploader />
           <FileSearcher setFileName={setFileName} />
           <QuestionField fileName={fileName} />
-
           <ChatHistory />
-
-          {/* <Button onClick={() => setChatRecords([])}>Clear History</Button> */}
+          <SubmitButton />
         </Flex>
       </ChatsProvider>
     </QueryClientProvider>

@@ -13,7 +13,7 @@ const apiClient = new APIClient<Chat>("/RAG/retrieval_generate");
 
 const QuestionField = ({ fileName }: { fileName: string }) => {
   const { data: documentsResponse, isLoading } = useDocuments();
-  const { chats, chatsDispatch } = useContext(ChatsContext);
+  const { chatsDispatch } = useContext(ChatsContext);
 
   const listOfDocument = documentsResponse?.results
     ? documentsResponse.results
@@ -45,7 +45,7 @@ const QuestionField = ({ fileName }: { fileName: string }) => {
             }
 
             if (!fileNames.includes(fileName)) {
-              toast.error("The selected PDF document doesn't exist!");
+              toast.error("你选择的文档不存在!");
               return;
             }
             submitData.question = questionRef.current.value;
@@ -72,7 +72,7 @@ const QuestionField = ({ fileName }: { fileName: string }) => {
           <Heading size={"2"}>用于更好地搜索相关内容的上下文： [可选]</Heading>
           <TextField.Root className="mb-2">
             <TextField.Input
-              placeholder="Context: Asset allocation with a duration"
+              placeholder="自动研磨模式,保护生产板"
               ref={contextRef}
             />
           </TextField.Root>
@@ -88,7 +88,7 @@ const QuestionField = ({ fileName }: { fileName: string }) => {
             type="submit"
             className="cursor-pointer"
             color="blue"
-            disabled={isAnswering && isLoading}
+            disabled={isAnswering || isLoading}
           >
             {isAnswering ? "检索生成中..." : "检索生成"}
             {isAnswering && <Spinner />}
