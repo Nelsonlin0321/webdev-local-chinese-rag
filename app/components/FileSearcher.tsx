@@ -11,7 +11,7 @@ interface Props {
 }
 
 const FileSearcher = ({ setFileName }: Props) => {
-  const { data: documentsResponse } = useDocuments();
+  const { data: documentsResponse, isLoading } = useDocuments();
 
   const listOfDocument = documentsResponse?.results
     ? documentsResponse.results
@@ -46,7 +46,7 @@ const FileSearcher = ({ setFileName }: Props) => {
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon />
-                搜索文档
+                {isLoading ? "加载中" : "搜索文档"}
               </InputAdornment>
             ),
           }}

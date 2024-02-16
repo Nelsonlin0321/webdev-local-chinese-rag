@@ -5,6 +5,8 @@ import ChatsProvider from "../chats/ChatsProvider";
 import { Flex } from "@radix-ui/themes";
 import FileUploader from "./FileUploader";
 import FileSearcher from "./FileSearcher";
+import QuestionField from "./QuestionField";
+import ChatHistory from "./ChatHistory";
 
 const queryClient = new QueryClient();
 
@@ -21,9 +23,9 @@ const Chatbot = () => {
         >
           <FileUploader />
           <FileSearcher setFileName={setFileName} />
-          {/* <QuestionField /> */}
+          <QuestionField fileName={fileName} />
 
-          {/* <ChatHistory /> */}
+          <ChatHistory />
 
           {/* <Button onClick={() => setChatRecords([])}>Clear History</Button> */}
         </Flex>

@@ -24,6 +24,7 @@
     "pdfjs": "^2.5.3",
     "pdfjs-dist": "^4.0.379",
     "react": "^18",
+    "react-doc-viewer": "^0.1.5",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "semantic-ui-css": "^2.5.0",

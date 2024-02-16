@@ -1,10 +1,4 @@
-export interface Chat {
-  context: string;
-  question: string;
-  file_name: string;
-  answer: string;
-  uuid: string;
-}
+import Chat from "../entities/Chat";
 
 interface AddChat {
   type: "ADD";

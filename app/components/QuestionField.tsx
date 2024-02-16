@@ -1,17 +1,30 @@
 "use client";
-import { TextField, Text, Heading } from "@radix-ui/themes";
+import { Heading, TextField } from "@radix-ui/themes";
 import { useContext, useRef, useState } from "react";
-import { Button } from "semantic-ui-react";
 import toast, { Toaster } from "react-hot-toast";
-import apiClient from "../services/api-client";
-import { chatRecord } from "./Chatbot";
+import { Button } from "semantic-ui-react";
+import ChatsContext from "../chats/ChatsContext";
+import Chat from "../entities/Chat";
+import useDocuments from "../hooks/useDocuments";
+import APIClient from "../services/api-client";
 import Spinner from "./Spinner";
 
-const QuestionField = () => {
+const apiClient = new APIClient<Chat>("/RAG/retrieval_generate");
+
+const QuestionField = ({ fileName }: { fileName: string }) => {
+  const { data: documentsResponse, isLoading } = useDocuments();
+  const { chats, chatsDispatch } = useContext(ChatsContext);
+
+  const listOfDocument = documentsResponse?.results
+    ? documentsResponse.results
+    : [];
+
+  const fileNames = listOfDocument.map((doc) => doc.file_name);
+
   const questionRef = useRef<HTMLInputElement>(null);
   const contextRef = useRef<HTMLInputElement>(null);
 
-  const [isLoading, setLoading] = useState(false);
+  const [isAnswering, setAnswering] = useState(false);
 
   const submitData: {
     question: string;
@@ -40,42 +53,33 @@ const QuestionField = () => {
               submitData.context = contextRef.current.value;
             }
 
-            setLoading(true);
+            setAnswering(true);
             try {
-              await apiClient
-                .post<chatRecord>("/api/retrieval_generate", submitData)
-                .then((res) => {
-                  setChatRecords([res.data, ...chatRecords]);
-                  setLoading(false);
-                });
+              await apiClient.post(submitData).then((res) => {
+                chatsDispatch({ type: "ADD", chat: res });
+                setAnswering(false);
+              });
             } catch (error) {
-              // const response = (error as AxiosError).response?.data;
-              // const message = (response as { message: string }).message;
-              // const errorMessage = message || "Unexpected Error";
-              const errorMessage = "Unexpected Error";
+              const errorMessage = "未知错误";
               toast.error(errorMessage, { duration: 1000 });
             } finally {
-              setLoading(false);
+              setAnswering(false);
             }
           }
         }}
       >
         <div>
-          <Heading size={"2"}>
-            Context for better searching the relevant content [Optional]
-          </Heading>
+          <Heading size={"2"}>用于更好地搜索相关内容的上下文： [可选]</Heading>
           <TextField.Root className="mb-2">
             <TextField.Input
               placeholder="Context: Asset allocation with a duration"
               ref={contextRef}
             />
           </TextField.Root>
-          <Heading size={"2"}>
-            Your question related to selected PDF Document
-          </Heading>
+          <Heading size={"2"}>检索于文档相关的问题：</Heading>
           <TextField.Root className="mb-2">
             <TextField.Input
-              placeholder="Question: Given the criteria, if the percentage of the portfolio with a duration longer than 7 years is less than 20%, answer me Yes or No, does this document satisfy this criteria?"
+              placeholder="在自动研磨模式下，如何保护生产板？"
               ref={questionRef}
             />
           </TextField.Root>
@@ -84,10 +88,10 @@ const QuestionField = () => {
             type="submit"
             className="cursor-pointer"
             color="blue"
-            disabled={isLoading}
+            disabled={isAnswering && isLoading}
           >
-            {isLoading ? "Thinking..." : "Ask"}
-            {isLoading && <Spinner />}
+            {isAnswering ? "检索生成中..." : "检索生成"}
+            {isAnswering && <Spinner />}
           </Button>
         </div>
       </form>

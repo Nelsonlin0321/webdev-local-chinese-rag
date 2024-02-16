@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
-import { Chat, ChatAction } from "./ChatsReducer";
+import { ChatAction } from "./ChatsReducer";
 import React from "react";
+import Chat from "../entities/Chat";
 
 interface ChatsContextType {
   chats: Chat[];

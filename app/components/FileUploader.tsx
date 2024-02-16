@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import apiClient from "../services/api-client";
 import { AxiosError } from "axios";
 import Spinner from "./Spinner";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Button } from "semantic-ui-react";
+import { axiosInstance } from "../services/api-client";
 const FileUploader = () => {
   const [file, setFile] = useState<File>();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -22,7 +22,7 @@ const FileUploader = () => {
     try {
       const data = new FormData();
       data.set("file", file);
-      await apiClient.post("/api/ingest", data, {
+      await axiosInstance.post("/api/ingest", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

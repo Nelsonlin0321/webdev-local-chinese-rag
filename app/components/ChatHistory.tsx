@@ -1,23 +1,25 @@
 "use client";
 import { Text } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Accordion, Icon, Label } from "semantic-ui-react";
-
-const PDFViewer = dynamic(() => import("./PDFViewer"), {
+import ChatsContext from "../chats/ChatsContext";
+const WordDocxViewer = dynamic(() => import("./WordDocxViewer"), {
   ssr: false,
 });
 
-const ChatHistory = ({ chatRecords }: Props) => {
+const ChatHistory = () => {
+  const { chats, chatsDispatch } = useContext(ChatsContext);
+
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [chatRecords]);
+  // useEffect(() => {
+  //   setActiveIndex(0);
+  // }, [chatRecords]);
 
   return (
     <Accordion fluid styled>
-      {chatRecords.map((message, index) => (
+      {chats.map((message, index) => (
         <div key={index}>
           <Accordion.Title
             active={activeIndex === index}
@@ -44,10 +46,14 @@ const ChatHistory = ({ chatRecords }: Props) => {
             <Text className="text-gray-800 mb-4 whitespace-pre-line">
               {message.answer}
             </Text>
-            <PDFViewer
-              pdfUrl={`https://d2gewc5xha837s.cloudfront.net/rag-documents/${message.file_name}`}
-              pageNumber={message.page_number}
-            />
+            {activeIndex === index ? (
+              <WordDocxViewer
+                key={index} // Add key prop with a unique value
+                uri={
+                  "https://d2gewc5xha837s.cloudfront.net/chinese-local-rag/关于精密研磨优化改进制作说明.docx"
+                }
+              />
+            ) : null}
           </Accordion.Content>
         </div>
       ))}
