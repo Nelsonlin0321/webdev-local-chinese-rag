@@ -1,5 +1,5 @@
 "use client";
-import { Heading, TextField } from "@radix-ui/themes";
+import { Heading, Text, TextField } from "@radix-ui/themes";
 import { useContext, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "semantic-ui-react";
@@ -90,7 +90,9 @@ const QuestionField = ({ fileName }: { fileName: string }) => {
             color="blue"
             disabled={isAnswering || isLoading}
           >
-            {isAnswering ? "检索生成中..." : "检索生成"}
+            <Text className=" font-bold">
+              {isAnswering ? "检索生成中..." : "检索生成"}
+            </Text>
             {isAnswering && <Spinner />}
           </Button>
         </div>
