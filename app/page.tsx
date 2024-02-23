@@ -1,7 +1,13 @@
+import NavBar from "./NavBar";
 import Chatbot from "./components/Chatbot";
 
 export default async function Home() {
-  return <Chatbot />;
+  return (
+    <>
+      <NavBar />
+      <Chatbot />
+    </>
+  );
 }
 
 export const dynamic = "force-dynamic";
