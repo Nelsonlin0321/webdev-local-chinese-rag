@@ -7,7 +7,7 @@ const SubmitButton = () => {
 
   return (
     <Button onClick={() => chatsDispatch({ type: "SET", chats: [] })}>
-      Clear History
+      清楚历史对话
     </Button>
   );
 };

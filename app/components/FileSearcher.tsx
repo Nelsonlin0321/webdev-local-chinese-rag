@@ -33,7 +33,7 @@ const FileSearcher = ({ setFileName }: Props) => {
         setInputValue(newInputValue);
         setFileName(newInputValue);
       }}
-      className="rounded-lg border w-full"
+      className="w-full rounded-lg border-2 bg-slate-50"
       disablePortal
       id="combo-box-demo"
       options={allDocument}

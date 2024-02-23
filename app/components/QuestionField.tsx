@@ -70,14 +70,14 @@ const QuestionField = ({ fileName }: { fileName: string }) => {
       >
         <div>
           <Heading size={"2"}>用于更好地搜索相关内容的上下文： [可选]</Heading>
-          <TextField.Root className="mb-2">
+          <TextField.Root className="mb-2 rounded-lg border-2 bg-slate-50">
             <TextField.Input
               placeholder="自动研磨模式,保护生产板"
               ref={contextRef}
             />
           </TextField.Root>
           <Heading size={"2"}>检索于文档相关的问题：</Heading>
-          <TextField.Root className="mb-2">
+          <TextField.Root className="mb-2 rounded-lg border-2 bg-slate-50">
             <TextField.Input
               placeholder="在自动研磨模式下，如何保护生产板？"
               ref={questionRef}
